@@ -22,7 +22,7 @@ app.post('/gateway', function (req, res) {
   if(req.body.commits.length > 0){
     console.log(req.body.commits)
 
-    body.attachments.fields.push({
+    body.attachments[0].fields.push({
         title: 'Comment',
         value: req.body.commits[0].message,
         short: false
