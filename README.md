@@ -5,4 +5,4 @@ Gitlab 2 slack gateway
 
 I'd suggest to create an heroku instance, deploy it and once you have it working start using it like:
 
-http://URL/gateway?slack=<SLACKTOKEN>
+http://URL/gateway?slack=YOUR_SLACK_TOKEN_HERE

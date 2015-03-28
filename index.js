@@ -5,6 +5,10 @@ var bodyParser = require('body-parser')
 
 app.use(bodyParser.json());
 
+app.get('/', function (req, res) {
+  res.redirect('https://github.com/matteocrippa/gitlab2slack')
+})
+
 app.post('/gateway', function (req, res) {
   var body = {
     attachments: [
