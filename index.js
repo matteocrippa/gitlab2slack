@@ -3,7 +3,8 @@ var app = express()
 var request = require('superagent')
 
 app.post('/gateway', function (req, res) {
-  console.log(req)
+  console.log(req.body)
+  console.log(req.payload)
   var body = {
     attachments: [
       {
