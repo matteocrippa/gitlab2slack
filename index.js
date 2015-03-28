@@ -1,6 +1,9 @@
 var express = require('express')
 var app = express()
 var request = require('superagent')
+var bodyParser = require('body-parser')
+
+app.use(bodyParser.json());
 
 app.post('/gateway', function (req, res) {
   console.log(req.body)
