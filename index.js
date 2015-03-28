@@ -6,19 +6,22 @@ var bodyParser = require('body-parser')
 app.use(bodyParser.json());
 
 app.post('/gateway', function (req, res) {
-  console.log(req.body)
-  console.log(req.payload)
   var body = {
     attachments: [
       {
         fallback: req.body.object_kind + ' on <' + req.body.repository.homepage + '|' + req.body.repository.name + '>',
         pretext: req.body.object_kind + ' on <' + req.body.repository.homepage + '|' + req.body.repository.name + '>',
-        color: "#D00000"
+        color: "#D00000",
+        fields: []
       }
     ]
   }
 
+
+
   if(req.body.commits.length > 0){
+    console.log(req.body.commits)
+
     body.attachments.fields.push({
         title: 'Comment',
         value: req.body.commits[0].message,
