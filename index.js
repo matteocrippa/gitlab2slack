@@ -10,12 +10,49 @@ app.get('/', function (req, res) {
 })
 
 app.post('/gateway', function (req, res) {
+
+  var body = {
+    attachments: [
+      fallback: '',
+      pretext: '',
+      color: '',
+      fields: []
+    ]
+  }
+
+  switch(req.body.object_kind){
+    case 'push':
+      body.attachments[0].fallback = 'Push - <' + req.body.repository.homepage + '|' + req.body.repository.name + '>'
+      body.attachments[0].pretext = 'Push - <' + req.body.repository.homepage + '|' + req.body.repository.name + '>'
+      body.attachments[0].color = '#00D000'
+      req.body.commits.forEach(function(item){
+        body.attachments[0].fields.push({
+          title: 'Commit by ' + item.author.name,
+          value: item.message,
+          short: false
+        })
+      })
+      break;
+    case 'issue':
+      body.attachments[0].fallback = req.body.object_attributes.action +' issue by ' + req.body.user.name
+      body.attachments[0].pretext = req.body.object_attributes.action +' issue by ' + req.body.user.name
+      body.attachments[0].color = '#D00000'
+      body.attachments[0].fields.push({
+        title: req.body.object_attributes.title,
+        value: req.body.object_attributes.description,
+        short: false
+      })
+      break;
+    default:
+      break;
+  }
+
   var body = {
     attachments: [
       {
-        fallback: req.body.object_kind + ' on <' + req.body.repository.homepage + '|' + req.body.repository.name + '>',
+        fallback: req.body.object_kind + ' on ,
         pretext: req.body.object_kind + ' on <' + req.body.repository.homepage + '|' + req.body.repository.name + '>',
-        color: "#D00000",
+        color: "#00D000",
         fields: []
       }
     ]
